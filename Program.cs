@@ -35,6 +35,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IRespostoryGenderFilm, RepositoriesGender>();
 
+// Lo que hace el AddAutoMapper es registrar el servicio de AutoMapper en la aplicación y aplicar las configuraciones de AutoMapper en la aplicación
+builder.Services.AddAutoMapper(typeof(Program));
+
 var app = builder.Build();
 
 if (builder.Environment.IsDevelopment())

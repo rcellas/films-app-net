@@ -135,3 +135,5 @@
 /Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsUdemy/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Security.Cryptography.ProtectedData.dll
 /Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsUdemy/bin/Debug/net8.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll
 /Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsUdemy/obj/Debug/net8.0/FilmsUdemy.sourcelink.json
+/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsUdemy/bin/Debug/net8.0/AutoMapper.dll
+/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsUdemy/bin/Debug/net8.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll

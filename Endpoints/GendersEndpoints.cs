@@ -1,3 +1,6 @@
+using System.Runtime.Intrinsics.X86;
+using AutoMapper;
+using FilmsUdemy.DTOs;
 using FilmsUdemy.Entity;
 using FilmsUdemy.Repositories;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -27,14 +30,17 @@ public static class GendersEndpoints
 // el async hace que el método sea asincrono
 // el Task hace que el método devuelva un Task
 // el <Ok<List<GenderFilms>>> es el tipo de dato que devolverá el método
-static async Task<Ok<List<GenderFilms>>> GetAllGenders(IRespostoryGenderFilm repository)
+static async Task<Ok<List<GenderDTO>>> GetAllGenders(IRespostoryGenderFilm repository, IMapper mapper)
 {
     var genders = await repository.GetAll();
     // el TypedResults.Ok nos permite devolver un 200
-    return TypedResults.Ok(genders);
+    // lo que hace el select, que viene de Linq, es que por cada registro que haya en la lista
+    // el ToList() lo que hace es que nos devuelva una lista
+    var gendersDTO = mapper.Map<List<GenderDTO>>(genders);
+    return TypedResults.Ok(gendersDTO);
 }
 
-static async Task<Results<Ok<GenderFilms>,NotFound>> GetGendersById (IRespostoryGenderFilm repository, int id)
+static async Task<Results<Ok<GenderDTO>,NotFound>> GetGendersById (IRespostoryGenderFilm repository, int id, IMapper mapper)
 {
     var gender = await repository.GetById(id);
      
@@ -43,21 +49,26 @@ static async Task<Results<Ok<GenderFilms>,NotFound>> GetGendersById (IRespostory
     {
         return TypedResults.NotFound();
     }
-    
+    var genderDTO = mapper.Map<GenderDTO>(gender);
     // aquí no ponemos solo gender ya que tenemoss que devolver un objeto de tipo Results para que devuelva un 200
     // esto ocurre pq nosotros arriba estamos devolviendo un Results.NotFound() y necesitamos devolver un Results.Ok
-    return TypedResults.Ok(gender);
+    return TypedResults.Ok(genderDTO);
 }
 
-static async Task<Created<GenderFilms>> CreateGender(GenderFilms gender, IRespostoryGenderFilm repository, IOutputCacheStore outputCacheStore)
+// el IMapper nos permite mapear un objeto a otro usando AutoMapper
+static async Task<Created<GenderDTO>> CreateGender(CreateGenderDTO createGenderDTO, IRespostoryGenderFilm repository, IOutputCacheStore outputCacheStore, IMapper mapper)
 {
+    var gender = mapper.Map<GenderFilms>(createGenderDTO);
     var id = await repository.Create(gender);
     // con el await le decimos que espere a que se ejecute el EvictByTagAsync y que al momento de crear el registro, borre la cache
     await outputCacheStore.EvictByTagAsync("gender-get",default);
-    return TypedResults.Created($"/gender/{id}", gender);
+    
+    var genderDTO = mapper.Map<GenderDTO>(gender);
+    
+    return TypedResults.Created($"/gender/{id}", genderDTO);
 }
-
-static async Task<Results<NoContent,NotFound>> UpdateGenders(int id, GenderFilms gender, IRespostoryGenderFilm repostory, IOutputCacheStore outputCacheStore)
+// llamamos a CreateGenderDTO pq hace la misma funcionalidad que el create
+static async Task<Results<NoContent,NotFound>> UpdateGenders(int id, CreateGenderDTO updateDto, IRespostoryGenderFilm repostory, IOutputCacheStore outputCacheStore, IMapper mapper)
 {
     //miramos si existe la id
     var exist = await repostory.Exist(id);
@@ -66,7 +77,10 @@ static async Task<Results<NoContent,NotFound>> UpdateGenders(int id, GenderFilms
     {
         return TypedResults.NotFound();
     }
-
+    
+    var gender = mapper.Map<GenderFilms>(updateDto);
+    gender.Id = id;
+    
     await repostory.Update(gender);
     await outputCacheStore.EvictByTagAsync("gender-get", default);
         
