@@ -1,11 +1,19 @@
 {
   "Version": 1,
-  "Hash": "QTgoDPs08hkJhL4bqcPCAr+R5ul+DgoMILHUkpLMQUY=",
+  "Hash": "VzK/4SWdIdx3x50CAe6S3RQkVJITW4lZLngZ8HznL4w=",
   "Source": "FilmsUdemy",
   "BasePath": "_content/FilmsUdemy",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "FilmsUdemy/wwwroot",
+      "Source": "FilmsUdemy",
+      "ContentRoot": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsUdemy/FilmsUdemy/wwwroot/",
+      "BasePath": "_content/FilmsUdemy",
+      "Pattern": "**"
+    }
+  ],
   "Assets": []
 }
