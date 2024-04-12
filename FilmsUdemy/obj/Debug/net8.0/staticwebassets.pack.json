@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsUdemy/FilmsUdemy/wwwroot/actors/8f1f40fe-444a-47c2-9c07-8dd6554965c3.jpg",
+      "PackagePath": "staticwebassets/actors/8f1f40fe-444a-47c2-9c07-8dd6554965c3.jpg"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.FilmsUdemy.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.FilmsUdemy.props",
+      "PackagePath": "build\\FilmsUdemy.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.FilmsUdemy.props",
+      "PackagePath": "buildMultiTargeting\\FilmsUdemy.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.FilmsUdemy.props",
+      "PackagePath": "buildTransitive\\FilmsUdemy.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
