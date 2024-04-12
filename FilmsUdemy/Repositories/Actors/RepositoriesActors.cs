@@ -21,7 +21,8 @@ public class RepositoriesActors : IRepositoryActors
     public async Task<Actor?> GetActorById(int id)
     {
         //FirstOrDefaultAsync nos devolverá el primer registro que coincida con el id que le pasamos por parámetro
-        // el asnotracking nos permite hacer una consulta sin que se quede en memoria
+        // el asnotracking nos permite hacer una consulta sin que se quede en memoria ya que .net core por defecto hace un seguimiento de los objetos
+        // se pone asnotracking para evitar el error de que el objeto ya está en seguimiento y no se pueda actualizar
         return await context.Actors.AsNoTracking().FirstOrDefaultAsync(x=>x.Id == id);
     }
     

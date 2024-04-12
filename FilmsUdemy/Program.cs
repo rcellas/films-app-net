@@ -3,6 +3,7 @@ using FilmsUdemy.Endpoints;
 using FilmsUdemy.Entity;
 using FilmsUdemy.Repositories;
 using FilmsUdemy.Repositories.Actors;
+using FilmsUdemy.Service;
 using Microsoft.AspNetCore.Cors;using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +38,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IRespostoryGenderFilm, RepositoriesGender>();
 builder.Services.AddScoped<IRepositoryActors, RepositoriesActors>();
 
+builder.Services.AddScoped<IFileStorage, LocalFileStorage>();
+builder.Services.AddHttpContextAccessor();
+
 // Lo que hace el AddAutoMapper es registrar el servicio de AutoMapper en la aplicación y aplicar las configuraciones de AutoMapper en la aplicación
 builder.Services.AddAutoMapper(typeof(Program));
 
@@ -51,10 +55,13 @@ if (builder.Environment.IsDevelopment())
 app.UseCors();
 app.UseOutputCache();
 
+app.UseStaticFiles();
+
 //app.MapGet("/", [EnableCors(policyName:"free")]() => "Hello World!");
 app.MapGet("/", () => "Hello World!");
 
 app.MapGroup("/gender").MapGenders();
+app.MapGroup("/actors").MapActors();
 
 app.Run();
 
