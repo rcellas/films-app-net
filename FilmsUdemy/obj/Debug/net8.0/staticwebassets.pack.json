@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsUdemy/FilmsUdemy/wwwroot/actors/7affcbb1-dcfc-47ef-adae-efd494be4bda.jpg",
+      "PackagePath": "staticwebassets/actors/7affcbb1-dcfc-47ef-adae-efd494be4bda.jpg"
+    },
+    {
       "Id": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsUdemy/FilmsUdemy/wwwroot/actors/8f1f40fe-444a-47c2-9c07-8dd6554965c3.jpg",
       "PackagePath": "staticwebassets/actors/8f1f40fe-444a-47c2-9c07-8dd6554965c3.jpg"
     },
