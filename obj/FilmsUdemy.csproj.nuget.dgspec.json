@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsUdemy/FilmsUdemy.csproj": {}
+    "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsApi/FilmsUdemy/FilmsUdemy.csproj": {}
   },
   "projects": {
-    "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsUdemy/FilmsUdemy.csproj": {
+    "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsApi/FilmsUdemy/FilmsUdemy.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsUdemy/FilmsUdemy.csproj",
+        "projectUniqueName": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsApi/FilmsUdemy/FilmsUdemy.csproj",
         "projectName": "FilmsUdemy",
-        "projectPath": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsUdemy/FilmsUdemy.csproj",
+        "projectPath": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsApi/FilmsUdemy/FilmsUdemy.csproj",
         "packagesPath": "/Users/bcnmac020/.nuget/packages/",
-        "outputPath": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsUdemy/obj/",
+        "outputPath": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsApi/FilmsUdemy/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/bcnmac020/.nuget/NuGet/NuGet.Config"

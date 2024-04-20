@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "LVFomRXn0I5aNgfBEKWhcJgvTYjevMrpJiLVWSHZUu+twX5s4xRySUDhik6jOCXm+mNscSMozlrHoebrcZhi6A==",
+  "dgSpecHash": "oV00wiV/6xK2wu4zjeBWxswaYQFN3NaMAulFjOm8GqtcarZHzNgeDwl8edMedmOcTeM1eRjP9rHshXpjkTI1Fg==",
   "success": true,
-  "projectFilePath": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsUdemy/FilmsUdemy.csproj",
+  "projectFilePath": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsApi/FilmsUdemy/FilmsUdemy.csproj",
   "expectedPackageFiles": [
     "/Users/bcnmac020/.nuget/packages/automapper/12.0.1/automapper.12.0.1.nupkg.sha512",
     "/Users/bcnmac020/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/12.0.1/automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

@@ -16,8 +16,13 @@ public class ApplicationDBContext: DbContext
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<GenderFilms>().Property(p => p.Name).HasMaxLength(50);
+        modelBuilder.Entity<Actor>().Property(p=>p.Name).HasMaxLength(150);
+        
+        // para la foto lo haremos con unicode ya que de esa forma podemos guardar cualquier tipo de caracter
+        modelBuilder.Entity<Actor>().Property(p=>p.Photo).IsUnicode();
     }
 
     // DbSet es una colección de entidades que se pueden consultar, agregar, modificar y eliminar
     public DbSet<GenderFilms> Genders { get; set; }
+    public DbSet<Actor> Actors { get; set; }
 }

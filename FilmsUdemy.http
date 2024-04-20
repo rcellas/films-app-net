@@ -1,0 +1,5 @@
+@FilmsUdemy_HostAddress = http://localhost:5083
+
+GET {{FilmsUdemy_HostAddress}}/weatherforecast/
+Accept: application/json
+

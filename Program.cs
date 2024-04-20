@@ -2,6 +2,7 @@ using FilmsUdemy.Data;
 using FilmsUdemy.Endpoints;
 using FilmsUdemy.Entity;
 using FilmsUdemy.Repositories;
+using FilmsUdemy.Repositories.Actors;
 using Microsoft.AspNetCore.Cors;using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
@@ -34,6 +35,7 @@ builder.Services.AddSwaggerGen();
 // lo que hacemos es registrar la interfaz y la clase que implementa la interfaz, pero también nos sirve para llamar este servicio en cualquier parte de la aplicación
 
 builder.Services.AddScoped<IRespostoryGenderFilm, RepositoriesGender>();
+builder.Services.AddScoped<IRepositoryActors, RepositoriesActors>();
 
 // Lo que hace el AddAutoMapper es registrar el servicio de AutoMapper en la aplicación y aplicar las configuraciones de AutoMapper en la aplicación
 builder.Services.AddAutoMapper(typeof(Program));
