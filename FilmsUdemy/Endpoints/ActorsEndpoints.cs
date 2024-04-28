@@ -19,6 +19,7 @@ public static class ActorsEndpoints
         group.MapGet("getByName/{name}", GetActorsByName);
         group.MapGet("/{id}", GetActorById);
         group.MapPost("/", CreateActor).DisableAntiforgery();
+        group.MapPut("/{id:int}", UpdateActor).DisableAntiforgery();
         return group;
     }
     
@@ -64,6 +65,28 @@ public static class ActorsEndpoints
         var actorDTO = mapper.Map<ActorsDTO>(actor);
         return TypedResults.Created($"/actors/{id}", actorDTO);
 
+    }
+    
+    static async Task<Results<NoContent,NotFound>> UpdateActor(int id, [FromForm] CreateActorsDTO updateActorsDto,
+        IRepositoryActors repositoryActors, IOutputCacheStore outputCacheStore, IMapper mapper, IFileStorage fileStorage)
+    {
+        var actorDb = await repositoryActors.GetActorById(id);
+        if (actorDb is null)
+        {
+            return TypedResults.NotFound();
+        }
+        
+        var actorUpdated = mapper.Map<Actor>(updateActorsDto);
+        actorUpdated.Id = id;
+        actorUpdated.Photo= actorDb.Photo;
+        if (updateActorsDto.Photo is not null)
+        {
+            var url = await fileStorage.Storage(container, updateActorsDto.Photo);
+            actorUpdated.Photo = url;
+        }
+        await repositoryActors.UpdateActor(actorUpdated);
+        await outputCacheStore.EvictByTagAsync("actors-get", default);
+        return TypedResults.NoContent();
     }
     
     
