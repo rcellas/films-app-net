@@ -1,4 +1,5 @@
 using AutoMapper;
+using FilmsUdemy.DTOs;
 using FilmsUdemy.DTOs.Actors;
 using FilmsUdemy.Entity;
 using FilmsUdemy.Repositories.Actors;
@@ -21,9 +22,10 @@ public static class ActorsEndpoints
         return group;
     }
     
-    static async Task<Ok<List<ActorsDTO>>> GetAllActors(IRepositoryActors repositoryActors, IMapper mapper)
+    static async Task<Ok<List<ActorsDTO>>> GetAllActors(IRepositoryActors repositoryActors, IMapper mapper, int page=1, int recordsForPage=10)
     {
-        var actors = await repositoryActors.GetAllActors();
+        var pagination = new PaginationDto() {Page = page, RecordsForPage = recordsForPage};
+        var actors = await repositoryActors.GetAllActors(pagination);
         var actorsDtos = mapper.Map<List<ActorsDTO>>(actors);
         return TypedResults.Ok(actorsDtos);
     }
