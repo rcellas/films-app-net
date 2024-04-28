@@ -15,6 +15,7 @@ public static class ActorsEndpoints
     public static RouteGroupBuilder MapActors(this RouteGroupBuilder group)
     {
         group.MapGet("/", GetAllActors).CacheOutput(c=>c.Expire(TimeSpan.FromSeconds(60)).Tag("actors-get"));
+        group.MapGet("getByName/{name}", GetActorsByName);
         group.MapGet("/{id}", GetActorById);
         group.MapPost("/", CreateActor).DisableAntiforgery();
         return group;
@@ -23,6 +24,14 @@ public static class ActorsEndpoints
     static async Task<Ok<List<ActorsDTO>>> GetAllActors(IRepositoryActors repositoryActors, IMapper mapper)
     {
         var actors = await repositoryActors.GetAllActors();
+        var actorsDtos = mapper.Map<List<ActorsDTO>>(actors);
+        return TypedResults.Ok(actorsDtos);
+    }
+    
+    
+    static async Task<Ok<List<ActorsDTO>>> GetActorsByName(string name,IRepositoryActors repositoryActors, IMapper mapper)
+    {
+        var actors = await repositoryActors.GetActorsByName(name);
         var actorsDtos = mapper.Map<List<ActorsDTO>>(actors);
         return TypedResults.Ok(actorsDtos);
     }

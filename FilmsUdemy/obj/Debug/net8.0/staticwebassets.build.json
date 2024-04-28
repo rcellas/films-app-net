@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "/iqOKjmHTDdX3Nz2cPc9OZTWQXxmMk0iPaymAiU9zRs=",
+  "Hash": "FsMK+9rX1jWjnoG/ih68p/562oARGngHS7WzqHFcOCg=",
   "Source": "FilmsUdemy",
   "BasePath": "_content/FilmsUdemy",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "FilmsUdemy/wwwroot",
       "Source": "FilmsUdemy",
-      "ContentRoot": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsUdemy/FilmsUdemy/wwwroot/",
+      "ContentRoot": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/films-app-net/FilmsUdemy/wwwroot/",
       "BasePath": "_content/FilmsUdemy",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsUdemy/FilmsUdemy/wwwroot/actors/8f1f40fe-444a-47c2-9c07-8dd6554965c3.jpg",
+      "Identity": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/films-app-net/FilmsUdemy/wwwroot/actors/8f1f40fe-444a-47c2-9c07-8dd6554965c3.jpg",
       "SourceId": "FilmsUdemy",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/FilmsUdemy/FilmsUdemy/wwwroot/",
+      "ContentRoot": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/films-app-net/FilmsUdemy/wwwroot/",
       "BasePath": "_content/FilmsUdemy",
       "RelativePath": "actors/8f1f40fe-444a-47c2-9c07-8dd6554965c3.jpg",
       "AssetKind": "All",
@@ -34,6 +34,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/actors/8f1f40fe-444a-47c2-9c07-8dd6554965c3.jpg"
+    },
+    {
+      "Identity": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/films-app-net/FilmsUdemy/wwwroot/actors/96879e0e-cbd9-458a-a245-1580b260b5e6.png",
+      "SourceId": "FilmsUdemy",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/films-app-net/FilmsUdemy/wwwroot/",
+      "BasePath": "_content/FilmsUdemy",
+      "RelativePath": "actors/96879e0e-cbd9-458a-a245-1580b260b5e6.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/actors/96879e0e-cbd9-458a-a245-1580b260b5e6.png"
     }
   ]
 }

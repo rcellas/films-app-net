@@ -6,6 +6,7 @@ public interface IRepositoryActors
 {
     Task<List<Actor>> GetAllActors();
     Task<Actor?> GetActorById(int id);
+    Task<List<Actor>> GetActorsByName(string name);
     Task<int> CreateActor(Actor actor);
     Task UpdateActor(Actor actor);
     Task DeleteActor(int id);

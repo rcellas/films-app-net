@@ -26,6 +26,11 @@ public class RepositoriesActors : IRepositoryActors
         return await context.Actors.AsNoTracking().FirstOrDefaultAsync(x=>x.Id == id);
     }
     
+    public async Task<List<Actor>> GetActorsByName(string name)
+    {
+        return await context.Actors.Where(x=>x.Name.Contains(name)).ToListAsync();
+    }
+    
     public async Task<int> CreateActor(Actor actor)
     {
         context.Add(actor);
