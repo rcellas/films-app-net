@@ -20,6 +20,7 @@ public static class ActorsEndpoints
         group.MapGet("/{id}", GetActorById);
         group.MapPost("/", CreateActor).DisableAntiforgery();
         group.MapPut("/{id:int}", UpdateActor).DisableAntiforgery();
+        group.MapDelete("/{id:int}", DeleteActors);
         return group;
     }
     
@@ -85,6 +86,19 @@ public static class ActorsEndpoints
             actorUpdated.Photo = url;
         }
         await repositoryActors.UpdateActor(actorUpdated);
+        await outputCacheStore.EvictByTagAsync("actors-get", default);
+        return TypedResults.NoContent();
+    }
+    
+    static async Task<Results<NoContent,NotFound>> DeleteActors(int id, IRepositoryActors repositoryActors, IOutputCacheStore outputCacheStore, IFileStorage fileStorage)
+    {
+        var actor = await repositoryActors.GetActorById(id);
+        if (actor is null)
+        {
+            return TypedResults.NotFound();
+        }
+        await repositoryActors.DeleteActor(id);
+        await fileStorage.Delete(actor.Photo, container);
         await outputCacheStore.EvictByTagAsync("actors-get", default);
         return TypedResults.NoContent();
     }
