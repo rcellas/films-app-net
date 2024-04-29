@@ -1,6 +1,7 @@
 using AutoMapper;
 using FilmsUdemy.DTOs;
 using FilmsUdemy.DTOs.Actors;
+using FilmsUdemy.DTOs.Films;
 using FilmsUdemy.Entity;
 
 namespace FilmsUdemy.Utils;
@@ -17,6 +18,9 @@ public class AutoMapperProfiles: Profile
         // Mapeamos Actor con ActorDTO
         // lo que hacemos con el ForMember es decirle que ignore la propiedad Photo
         CreateMap<CreateActorsDTO, Actor>().ForMember(x=>x.Photo, options=>options.Ignore());
-        CreateMap<Actor, ActorsDTO>();
+        CreateMap<Actor, ActorsDto>();
+        
+        CreateMap<CreateFilmsDto, Film>().ForMember(x=>x.Poster, options=>options.Ignore());
+        CreateMap<Film, FilmsDto>();
     }
 }

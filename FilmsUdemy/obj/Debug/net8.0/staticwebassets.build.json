@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "N3qi5jB06Z8v4OqnTkDMzYXqStd2wSo7M0m8D8XWGXQ=",
+  "Hash": "S65DJYF9HuTXH3mGoZIBxY9nAqctoIPsfKUMGOpH4hs=",
   "Source": "FilmsUdemy",
   "BasePath": "_content/FilmsUdemy",
   "Mode": "Default",
@@ -34,6 +34,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/actors/279db226-d0bf-41b5-99e2-e6eeea2680dd.png"
+    },
+    {
+      "Identity": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/films-app-net/FilmsUdemy/wwwroot/actors/2dfa35c7-1b2f-4f51-8d94-741dfea275cb.png",
+      "SourceId": "FilmsUdemy",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/films-app-net/FilmsUdemy/wwwroot/",
+      "BasePath": "_content/FilmsUdemy",
+      "RelativePath": "actors/2dfa35c7-1b2f-4f51-8d94-741dfea275cb.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/actors/2dfa35c7-1b2f-4f51-8d94-741dfea275cb.png"
     },
     {
       "Identity": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/films-app-net/FilmsUdemy/wwwroot/actors/36bfe0c3-f86d-4d48-b4a5-d915f6bc29a1.png",
