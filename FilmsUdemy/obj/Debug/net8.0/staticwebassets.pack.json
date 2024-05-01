@@ -41,6 +41,10 @@
       "PackagePath": "staticwebassets/actors/d9aeccbf-842a-40dc-8e17-3df9e01bbbd8.png"
     },
     {
+      "Id": "/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/films-app-net/FilmsUdemy/wwwroot/films/7caebba5-4162-4495-8a2f-9e74eb1e9328.png",
+      "PackagePath": "staticwebassets/films/7caebba5-4162-4495-8a2f-9e74eb1e9328.png"
+    },
+    {
       "Id": "obj/Debug/net8.0/staticwebassets/msbuild.FilmsUdemy.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

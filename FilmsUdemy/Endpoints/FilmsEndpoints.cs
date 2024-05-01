@@ -65,12 +65,12 @@ public static RouteGroupBuilder MapFilms(this RouteGroupBuilder group)
         return TypedResults.Created($"/films/{id}", filmDto);
     }
     
-    static async Task<NoContent> UpdateFilm(int id, [FromForm] CreateFilmsDto updateFilmsDto, IRepositoryFilms repositoryFilms, IMapper mapper, IFileStorage fileStorage, IOutputCacheStore outputCacheStore)
+    static async Task<Results<NoContent, NotFound>> UpdateFilm(int id, [FromForm] CreateFilmsDto updateFilmsDto, IRepositoryFilms repositoryFilms, IMapper mapper, IFileStorage fileStorage, IOutputCacheStore outputCacheStore)
     {
         var filmDb = await repositoryFilms.GetFilmById(id);
         if (filmDb is null)
         {
-            return TypedResults.NoContent();
+            return TypedResults.NotFound();
         }
         var filmUpdate = mapper.Map<Film>(updateFilmsDto);
         filmUpdate.Id = id;
@@ -86,12 +86,12 @@ public static RouteGroupBuilder MapFilms(this RouteGroupBuilder group)
         return TypedResults.NoContent();
     }
     
-    static async Task<NoContent> DeleteFilm(int id, IRepositoryFilms repositoryFilms, IOutputCacheStore outputCacheStore, IFileStorage fileStorage)
+    static async Task<Results<NoContent,NotFound>> DeleteFilm(int id, IRepositoryFilms repositoryFilms, IOutputCacheStore outputCacheStore, IFileStorage fileStorage)
     {
         var film = await repositoryFilms.GetFilmById(id);
         if (film is null)
         {
-            return TypedResults.NoContent();
+            return TypedResults.NotFound();
         }
         await repositoryFilms.DeleteFilm(id);
         await fileStorage.Delete(film.Poster, _container);

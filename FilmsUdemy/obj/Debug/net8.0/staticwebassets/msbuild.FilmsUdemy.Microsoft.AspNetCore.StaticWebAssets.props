@@ -160,5 +160,21 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\actors\d9aeccbf-842a-40dc-8e17-3df9e01bbbd8.png))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\films\7caebba5-4162-4495-8a2f-9e74eb1e9328.png))">
+      <SourceType>Package</SourceType>
+      <SourceId>FilmsUdemy</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/FilmsUdemy</BasePath>
+      <RelativePath>films/7caebba5-4162-4495-8a2f-9e74eb1e9328.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath($(MSBuildThisFileDirectory)..\staticwebassets\films\7caebba5-4162-4495-8a2f-9e74eb1e9328.png))</OriginalItemSpec>
+    </StaticWebAsset>
   </ItemGroup>
 </Project>
