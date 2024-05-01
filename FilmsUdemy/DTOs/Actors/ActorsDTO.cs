@@ -1,6 +1,6 @@
 namespace FilmsUdemy.DTOs.Actors;
 
-public class ActorsDTO
+public class ActorsDto
 {
     public int Id { get; set; }
     public string Name { get; set; } = null!;

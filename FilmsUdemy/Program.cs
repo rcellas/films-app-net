@@ -3,6 +3,7 @@ using FilmsUdemy.Endpoints;
 using FilmsUdemy.Entity;
 using FilmsUdemy.Repositories;
 using FilmsUdemy.Repositories.Actors;
+using FilmsUdemy.Repositories.Films;
 using FilmsUdemy.Service;
 using Microsoft.AspNetCore.Cors;using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.OutputCaching;
@@ -37,6 +38,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IRespostoryGenderFilm, RepositoriesGender>();
 builder.Services.AddScoped<IRepositoryActors, RepositoriesActors>();
+builder.Services.AddScoped<IRepositoryFilms, RepositoriesFilms>();
 
 builder.Services.AddScoped<IFileStorage, LocalFileStorage>();
 builder.Services.AddHttpContextAccessor();
@@ -62,6 +64,7 @@ app.MapGet("/", () => "Hello World!");
 
 app.MapGroup("/gender").MapGenders();
 app.MapGroup("/actors").MapActors();
+app.MapGroup("/films").MapFilms();
 
 app.Run();
 

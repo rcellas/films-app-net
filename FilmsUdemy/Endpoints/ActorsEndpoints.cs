@@ -24,35 +24,35 @@ public static class ActorsEndpoints
         return group;
     }
     
-    static async Task<Ok<List<ActorsDTO>>> GetAllActors(IRepositoryActors repositoryActors, IMapper mapper, int page=1, int recordsForPage=10)
+    static async Task<Ok<List<ActorsDto>>> GetAllActors(IRepositoryActors repositoryActors, IMapper mapper, int page=1, int recordsForPage=10)
     {
         var pagination = new PaginationDto() {Page = page, RecordsForPage = recordsForPage};
         var actors = await repositoryActors.GetAllActors(pagination);
-        var actorsDtos = mapper.Map<List<ActorsDTO>>(actors);
+        var actorsDtos = mapper.Map<List<ActorsDto>>(actors);
         return TypedResults.Ok(actorsDtos);
     }
     
     
-    static async Task<Ok<List<ActorsDTO>>> GetActorsByName(string name,IRepositoryActors repositoryActors, IMapper mapper)
+    static async Task<Ok<List<ActorsDto>>> GetActorsByName(string name,IRepositoryActors repositoryActors, IMapper mapper)
     {
         var actors = await repositoryActors.GetActorsByName(name);
-        var actorsDtos = mapper.Map<List<ActorsDTO>>(actors);
+        var actorsDtos = mapper.Map<List<ActorsDto>>(actors);
         return TypedResults.Ok(actorsDtos);
     }
     
-    static async Task<Results<Ok<ActorsDTO>, NotFound>> GetActorById(int id, IRepositoryActors repositoryActors, IMapper mapper)
+    static async Task<Results<Ok<ActorsDto>, NotFound>> GetActorById(int id, IRepositoryActors repositoryActors, IMapper mapper)
     {
         var actor = await repositoryActors.GetActorById(id);
         if (actor is null)
         {
             return TypedResults.NotFound();
         }
-        var actorDto = mapper.Map<ActorsDTO>(actor);
+        var actorDto = mapper.Map<ActorsDto>(actor);
         return TypedResults.Ok(actorDto);
     }
     
     // fromform nos sirve para recibir archivos desde el cliente
-    static async Task<Created<ActorsDTO>> CreateActor([FromForm] CreateActorsDTO createActorsDto,
+    static async Task<Created<ActorsDto>> CreateActor([FromForm] CreateActorsDTO createActorsDto,
         IRepositoryActors repositoryActors, IOutputCacheStore outputCacheStore, IMapper mapper, IFileStorage fileStorage)
     {
         var actor = mapper.Map<Actor>(createActorsDto);
@@ -63,7 +63,7 @@ public static class ActorsEndpoints
         }
         int id = await repositoryActors.CreateActor(actor);
         await outputCacheStore.EvictByTagAsync("actors-get", default);
-        var actorDTO = mapper.Map<ActorsDTO>(actor);
+        var actorDTO = mapper.Map<ActorsDto>(actor);
         return TypedResults.Created($"/actors/{id}", actorDTO);
 
     }
