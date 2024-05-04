@@ -22,12 +22,13 @@ public class RepositoriesFilms : IRepositoryFilms
     {
         var queryable = _context.Films.AsQueryable();
         await _httpContext.InsertParametersPaginationInHeader(queryable);
-        return await _context.Films.ToListAsync();
+        return await _context.Films.Include(p=>p.Comments).ToListAsync();
     }
     
     public async Task<Film?> GetFilmById(int id)
     {
-        return await _context.Films.AsNoTracking().FirstOrDefaultAsync(x=>x.Id == id);
+        // Include nos permite traer la relación de la entidad que estamos consultando, en este caso Comments
+        return await _context.Films.Include(p=>p.Comments).AsNoTracking().FirstOrDefaultAsync(x=>x.Id == id);
     }
     
     public async Task<List<Film>> GetFilmsByName(string name)

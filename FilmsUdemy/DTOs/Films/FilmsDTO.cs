@@ -1,3 +1,5 @@
+using FilmsUdemy.DTOs.Comment;
+
 namespace FilmsUdemy.DTOs.Films;
 
 public class FilmsDto
@@ -6,4 +8,6 @@ public class FilmsDto
     public string Title { get; set; } = null!;
     public DateTime ReleaseDate { get; set; }
     public string? Poster { get; set; }
+    
+    public List<CommentsDto> Comments { get; set; } = new List<CommentsDto>();
 }
