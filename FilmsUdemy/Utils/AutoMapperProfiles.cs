@@ -1,6 +1,7 @@
 using AutoMapper;
 using FilmsUdemy.DTOs;
 using FilmsUdemy.DTOs.Actors;
+using FilmsUdemy.DTOs.Comment;
 using FilmsUdemy.DTOs.Films;
 using FilmsUdemy.Entity;
 
@@ -22,5 +23,8 @@ public class AutoMapperProfiles: Profile
         
         CreateMap<CreateFilmsDto, Film>().ForMember(x=>x.Poster, options=>options.Ignore());
         CreateMap<Film, FilmsDto>();
+
+        CreateMap<CreateCommentsDto, Comment>();
+        CreateMap<Comment, CommentsDto>();
     }
 }

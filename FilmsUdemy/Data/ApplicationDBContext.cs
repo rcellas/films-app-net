@@ -31,4 +31,5 @@ public class ApplicationDBContext: DbContext
     public DbSet<Actor> Actors { get; set; }
     
     public DbSet<Film> Films { get; set; }
+    public DbSet<Comment?> Comments { get; set; }
 }
