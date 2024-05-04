@@ -58,7 +58,7 @@ static async Task<Results<Ok<GenderDTO>,NotFound>> GetGendersById (IRespostoryGe
 // el IMapper nos permite mapear un objeto a otro usando AutoMapper
 static async Task<Created<GenderDTO>> CreateGender(CreateGenderDTO createGenderDto, IRespostoryGenderFilm repository, IOutputCacheStore outputCacheStore, IMapper mapper)
 {
-    var gender = mapper.Map<GenderFilms>(createGenderDto);
+    var gender = mapper.Map<Gender>(createGenderDto);
     var id = await repository.Create(gender);
     // con el await le decimos que espere a que se ejecute el EvictByTagAsync y que al momento de crear el registro, borre la cache
     await outputCacheStore.EvictByTagAsync("gender-get",default);
@@ -78,7 +78,7 @@ static async Task<Results<NoContent,NotFound>> UpdateGenders(int id, CreateGende
         return TypedResults.NotFound();
     }
     
-    var gender = mapper.Map<GenderFilms>(updateDto);
+    var gender = mapper.Map<Gender>(updateDto);
     gender.Id = id;
     
     await repostory.Update(gender);

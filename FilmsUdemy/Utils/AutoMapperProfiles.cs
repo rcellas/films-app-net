@@ -13,8 +13,8 @@ public class AutoMapperProfiles: Profile
     public AutoMapperProfiles()
     {
         // CreateMap nos permite mapear una entidad con un DTO, en nuestro caso CreateGenderDTO con GenderFilms
-        CreateMap<CreateGenderDTO, GenderFilms>();
-        CreateMap<GenderFilms, GenderDTO>();
+        CreateMap<CreateGenderDTO, Gender>();
+        CreateMap<Gender, GenderDTO>();
         
         // Mapeamos Actor con ActorDTO
         // lo que hacemos con el ForMember es decirle que ignore la propiedad Photo

@@ -16,25 +16,25 @@ public class RepositoriesGender : IRespostoryGenderFilm
         this.context = context;
     }
 
-    public async Task<int> Create(GenderFilms genderFilms)
+    public async Task<int> Create(Gender gender)
     {
         // esto no creara el registro en la base de datos, sino que es un paso previo para que se cree
         // nos marcará  como que se ha añadido un registro nuevo
-        context.Add(genderFilms);
+        context.Add(gender);
         // con el await le decimos que espere a que se ejecute el saveChangesAsync
         // y que no bloquee el hilo principal de la aplicación
         // el saveChangesAsync nos guardará el registro en la base de datos de forma asincrona
         // con esta línea de código, se guardará el registro en la base de datos
         await context.SaveChangesAsync();
         // nos devolverá el id del registro que se ha creado
-        return genderFilms.Id;
+        return gender.Id;
     }
     
-    public async Task Update(GenderFilms genderFilms)
+    public async Task Update(Gender gender)
     {
         // esto no actualizara el registro en la base de datos, sino que es un paso previo para que se actualice
         // nos marcará  como que se ha modificado un registro
-        context.Update(genderFilms);
+        context.Update(gender);
         // con el await le decimos que espere a que se ejecute el saveChangesAsync
         // y que no bloquee el hilo principal de la aplicación
         // el saveChangesAsync nos guardará el registro en la base de datos de forma asincrona
@@ -56,12 +56,12 @@ public class RepositoriesGender : IRespostoryGenderFilm
 
     
 
-    public async Task<List<GenderFilms>> GetAll()
+    public async Task<List<Gender>> GetAll()
     {
         return await context.Genders.OrderBy(x=>x.Name).ToListAsync();
     }
 
-    public async Task<GenderFilms?> GetById(int id)
+    public async Task<Gender?> GetById(int id)
     {
         //lo que estamos diciendo es que nos devuelva el primer registro que coincida con el id que le pasamos por parámetro
         // si no encuentra el registro, devolverá un null
