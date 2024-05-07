@@ -12,8 +12,7 @@ public class RepositoriesFilms : IRepositoryFilms
     private readonly ApplicationDBContext _context;
     private readonly HttpContext _httpContext;
     private readonly IMapper _mapper;
-    private IRepositoryFilms _repositoryFilmsImplementation;
-    private IRepositoryFilms _repositoryFilmsImplementation1;
+   
 
     // el httpcontextaccessor nos permite acceder a la información de la petición
     public RepositoriesFilms(ApplicationDBContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper
@@ -35,7 +34,7 @@ public class RepositoriesFilms : IRepositoryFilms
     {
         // Include nos permite traer la relación de la entidad que estamos consultando, en este caso Comments
         // ThenInclude nos permite traer la relación de la entidad que estamos consultando, en este caso GendersFilms
-        return await _context.Films.Include(p=>p.Comments).Include(p=>p.GendersFilms).ThenInclude(gf=>gf.Gender).Include(p=>p.ActorFilms).ThenInclude(af=>af.Actor).AsNoTracking().FirstOrDefaultAsync(x=>x.Id == id);
+        return await _context.Films.Include(p=>p.Comments).Include(p=>p.GendersFilms).ThenInclude(gf=>gf.Gender).Include(p=>p.ActorFilms.OrderBy(a=>a.Order)).ThenInclude(af=>af.Actor).AsNoTracking().FirstOrDefaultAsync(x=>x.Id == id);
     }
     
     public async Task<List<Film>> GetFilmsByName(string name)
