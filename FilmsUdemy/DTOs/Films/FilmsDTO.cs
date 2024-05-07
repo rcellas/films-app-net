@@ -9,5 +9,6 @@ public class FilmsDto
     public DateTime ReleaseDate { get; set; }
     public string? Poster { get; set; }
     
+    public List<GenderDTO> Gender { get; set; } = new List<GenderDTO>();
     public List<CommentsDto> Comments { get; set; } = new List<CommentsDto>();
 }

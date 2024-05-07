@@ -27,6 +27,8 @@ public class ApplicationDBContext: DbContext
         
         // lo que estamos hacíendo aquí es decirle a la base de datos que tanto el actor como el film serán una foreign key
         modelBuilder.Entity<GendersFilms>().HasKey(g=> new {g.GenderId, g.FilmId});
+        
+        modelBuilder.Entity<ActorFilm>().HasKey(g=> new {g.FilmId, g.ActorId});
     }
 
     // DbSet es una colección de entidades que se pueden consultar, agregar, modificar y eliminar
@@ -37,5 +39,7 @@ public class ApplicationDBContext: DbContext
     public DbSet<Comment> Comments { get; set; }
     
     public DbSet<GendersFilms> GendersFilms { get; set; }
+    
+    public DbSet<ActorFilm> ActorFilms { get; set; }
     
 }

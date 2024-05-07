@@ -10,4 +10,6 @@ public class Film
     //relations
     public List<GendersFilms> GendersFilms { get; set; } = new List<GendersFilms>();
     public List<Comment> Comments { get; set; } = new List<Comment>();
+    
+    public List<ActorFilm> ActorFilms { get; set; } = new List<ActorFilm>();
 }

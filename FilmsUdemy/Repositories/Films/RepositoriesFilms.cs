@@ -1,3 +1,4 @@
+using AutoMapper;
 using FilmsUdemy.Data;
 using FilmsUdemy.DTOs;
 using FilmsUdemy.Entity;
@@ -10,11 +11,16 @@ public class RepositoriesFilms : IRepositoryFilms
 {
     private readonly ApplicationDBContext _context;
     private readonly HttpContext _httpContext;
+    private readonly IMapper _mapper;
+    private IRepositoryFilms _repositoryFilmsImplementation;
+    private IRepositoryFilms _repositoryFilmsImplementation1;
 
     // el httpcontextaccessor nos permite acceder a la información de la petición
-    public RepositoriesFilms(ApplicationDBContext context, IHttpContextAccessor httpContextAccessor)
+    public RepositoriesFilms(ApplicationDBContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper
+        )
     {
         this._context = context;
+        this._mapper = mapper;
         _httpContext = httpContextAccessor.HttpContext!;
     }
     
@@ -22,7 +28,7 @@ public class RepositoriesFilms : IRepositoryFilms
     {
         var queryable = _context.Films.AsQueryable();
         await _httpContext.InsertParametersPaginationInHeader(queryable);
-        return await _context.Films.Include(p=>p.Comments).ToListAsync();
+        return await _context.Films.Include(p=>p.Comments).Include(p=>p.GendersFilms).ToListAsync();
     }
     
     public async Task<Film?> GetFilmById(int id)
@@ -57,5 +63,48 @@ public class RepositoriesFilms : IRepositoryFilms
     public async Task DeleteFilm(int id)
     {
         await _context.Films.Where(x=>x.Id == id).ExecuteDeleteAsync();
+    }
+
+    public async Task AssignGender(int id, List<int> gendersIds)
+    {
+        var film = await _context.Films.Include(p=>p.GendersFilms).FirstOrDefaultAsync(p=> p.Id == id);
+        if (film is null)
+        {
+            throw new AggregateException($"No existe la película con el id {id}");
+        }
+        // lo que estamos es generar una lista de GendersFilms con los id de los géneros que nos llegan
+        var gendersFilms = gendersIds.Select(genderId => new GendersFilms() { GenderId = genderId });
+        
+        // nosotros podemos tener 3 escenarios
+        // 1. Que no tengamos géneros asociados a la película
+        // 2. Que tengamos géneros asociados a la película y queramos añadir más
+        // 3. Que tengamos géneros asociados a la película y queramos quitar alguno
+        // con esta linea de codigo mapeamos nuestro metodo pelicula hacia nuestra entidad GendersFilms con el cual podremos editar. Manteniendo la misma referencia
+        film.GendersFilms = _mapper.Map(gendersFilms, film.GendersFilms);
+        await _context.SaveChangesAsync();
+        
+    }
+
+    public Task AssignActors(int id, List<ActorFilm> actorFilms)
+    {
+        return _repositoryFilmsImplementation1.AssignActors(id, actorFilms);
+    }
+
+    public async Task AssignActors(int id, List<ActorFilm> actorFilms, IMapper mapper)
+    {
+        // asignamos el orden en el que aparecen los actores en la película
+       for(int i=0; i<actorFilms.Count; i++)
+       {
+           actorFilms[i-1].Order = i+1;
+       }
+       var film = await _context.Films.Include(p=>p.ActorFilms).FirstOrDefaultAsync(p=> p.Id == id);
+       
+       if(film is null)
+       {
+           throw new AggregateException($"No existe la película con el id {id}");
+       }
+       
+       film.ActorFilms = _mapper.Map(actorFilms, film.ActorFilms);
+       await _context.SaveChangesAsync();
     }
 }

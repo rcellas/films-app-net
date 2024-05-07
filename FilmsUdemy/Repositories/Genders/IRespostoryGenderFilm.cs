@@ -18,4 +18,7 @@ public interface IRespostoryGenderFilm
     Task Update(Gender gender);
     
     Task Delete(int id);
+    
+    Task<List<int>> ExistsListGenders(List<int> ids);
+
 }
