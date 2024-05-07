@@ -6,6 +6,7 @@ using FilmsUdemy.Repositories.Actors;
 using FilmsUdemy.Repositories.CommentsFilms;
 using FilmsUdemy.Repositories.Films;
 using FilmsUdemy.Service;
+using FluentValidation;
 using Microsoft.AspNetCore.Cors;using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.EntityFrameworkCore;
@@ -48,6 +49,8 @@ builder.Services.AddHttpContextAccessor();
 // Lo que hace el AddAutoMapper es registrar el servicio de AutoMapper en la aplicación y aplicar las configuraciones de AutoMapper en la aplicación
 builder.Services.AddAutoMapper(typeof(Program));
 
+//Para construir las validaciones de FluentValidation (debemos instalar el paquete de FluentValidation.AspNetCore)
+builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 var app = builder.Build();
 
 if (builder.Environment.IsDevelopment())

@@ -555,3 +555,5 @@
 /Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/films-app-net/FilmsUdemy/obj/Debug/net8.0/FilmsUdemy.pdb
 /Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/films-app-net/FilmsUdemy/obj/Debug/net8.0/FilmsUdemy.genruntimeconfig.cache
 /Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/films-app-net/FilmsUdemy/obj/Debug/net8.0/ref/FilmsUdemy.dll
+/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/films-app-net/FilmsUdemy/bin/Debug/net8.0/FluentValidation.dll
+/Users/bcnmac020/Documents/factoriaf5/bootcamp/p2-singulars/films-app-net/FilmsUdemy/bin/Debug/net8.0/FluentValidation.DependencyInjectionExtensions.dll

@@ -1,8 +1,8 @@
-using System.Runtime.Intrinsics.X86;
 using AutoMapper;
 using FilmsUdemy.DTOs;
 using FilmsUdemy.Entity;
 using FilmsUdemy.Repositories;
+using FluentValidation;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.OutputCaching;
 
@@ -56,8 +56,13 @@ static async Task<Results<Ok<GenderDto>,NotFound>> GetGendersById (IRespostoryGe
 }
 
 // el IMapper nos permite mapear un objeto a otro usando AutoMapper
-static async Task<Created<GenderDto>> CreateGender(CreateGenderDTO createGenderDto, IRespostoryGenderFilm repository, IOutputCacheStore outputCacheStore, IMapper mapper)
+static async Task<Results<Created<GenderDto>, ValidationProblem>> CreateGender(CreateGenderDTO createGenderDto, IRespostoryGenderFilm repository, IOutputCacheStore outputCacheStore, IMapper mapper, IValidator<CreateGenderDTO> validator)
 {
+    var result = await validator.ValidateAsync(createGenderDto);
+    if(!result.IsValid)
+    {
+        return TypedResults.ValidationProblem(result.ToDictionary());
+    }
     var gender = mapper.Map<Gender>(createGenderDto);
     var id = await repository.Create(gender);
     // con el await le decimos que espere a que se ejecute el EvictByTagAsync y que al momento de crear el registro, borre la cache
