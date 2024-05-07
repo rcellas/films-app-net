@@ -8,6 +8,10 @@ public class CreateGenderDtoValidator : AbstractValidator<CreateGenderDTO>
 {
     public CreateGenderDtoValidator()
     {
-        RuleFor(x => x.Name).NotEmpty();
+        //mostrar mensaje de error no personalizado
+        //RuleFor(x => x.Name).NotEmpty();
+        
+        //mostrar mensaje de error personalizado
+        RuleFor(x => x.Name).NotEmpty().WithMessage("El campo nombre es requerido").MaximumLength(50).WithMessage("El campo nombre no debe tener más de {MaxLength} caracteres");
     }
 }
