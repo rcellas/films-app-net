@@ -28,13 +28,14 @@ public class RepositoriesFilms : IRepositoryFilms
     {
         var queryable = _context.Films.AsQueryable();
         await _httpContext.InsertParametersPaginationInHeader(queryable);
-        return await _context.Films.Include(p=>p.Comments).Include(p=>p.GendersFilms).ToListAsync();
+        return await _context.Films.Include(p=>p.Comments).Include(p=>p.GendersFilms).ThenInclude(gf=>gf.Gender).Include(p=>p.ActorFilms).ThenInclude(af=>af.Actor).ToListAsync();
     }
     
     public async Task<Film?> GetFilmById(int id)
     {
         // Include nos permite traer la relación de la entidad que estamos consultando, en este caso Comments
-        return await _context.Films.Include(p=>p.Comments).AsNoTracking().FirstOrDefaultAsync(x=>x.Id == id);
+        // ThenInclude nos permite traer la relación de la entidad que estamos consultando, en este caso GendersFilms
+        return await _context.Films.Include(p=>p.Comments).Include(p=>p.GendersFilms).ThenInclude(gf=>gf.Gender).Include(p=>p.ActorFilms).ThenInclude(af=>af.Actor).AsNoTracking().FirstOrDefaultAsync(x=>x.Id == id);
     }
     
     public async Task<List<Film>> GetFilmsByName(string name)
@@ -84,27 +85,22 @@ public class RepositoriesFilms : IRepositoryFilms
         await _context.SaveChangesAsync();
         
     }
-
-    public Task AssignActors(int id, List<ActorFilm> actorFilms)
-    {
-        return _repositoryFilmsImplementation1.AssignActors(id, actorFilms);
-    }
-
-    public async Task AssignActors(int id, List<ActorFilm> actorFilms, IMapper mapper)
+    
+    public async Task AssignActors(int id, List<ActorFilm> actorFilms)
     {
         // asignamos el orden en el que aparecen los actores en la película
-       for(int i=0; i<actorFilms.Count; i++)
-       {
-           actorFilms[i-1].Order = i+1;
-       }
-       var film = await _context.Films.Include(p=>p.ActorFilms).FirstOrDefaultAsync(p=> p.Id == id);
+        for(int i = 1; i <= actorFilms.Count; i++)
+        {
+            actorFilms[i - 1].Order = i;
+        }
+        var film = await _context.Films.Include(p=>p.ActorFilms).FirstOrDefaultAsync(p=> p.Id == id);
        
-       if(film is null)
-       {
-           throw new AggregateException($"No existe la película con el id {id}");
-       }
+        if(film is null)
+        {
+            throw new AggregateException($"No existe la película con el id {id}");
+        }
        
-       film.ActorFilms = _mapper.Map(actorFilms, film.ActorFilms);
-       await _context.SaveChangesAsync();
+        film.ActorFilms = _mapper.Map(actorFilms, film.ActorFilms);
+        await _context.SaveChangesAsync();
     }
 }
