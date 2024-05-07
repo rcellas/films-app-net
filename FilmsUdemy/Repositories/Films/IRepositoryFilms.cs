@@ -1,3 +1,4 @@
+using AutoMapper;
 using FilmsUdemy.DTOs;
 using FilmsUdemy.Entity;
 
@@ -12,4 +13,8 @@ public interface IRepositoryFilms
     Task UpdateFilm(Film film);
     Task DeleteFilm(int id);
     Task<bool> ExistFilm(int id);
+    
+    Task AssignGender(int id, List<int> gendersIds);
+
+    Task AssignActors(int id, List<ActorFilm> actorFilms);
 }

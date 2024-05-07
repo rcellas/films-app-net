@@ -12,4 +12,5 @@ public interface IRepositoryActors
     Task UpdateActor(Actor actor);
     Task DeleteActor(int id);
     Task<bool> ExistActor(int id);
+    Task<List<int>> ExistActors(List<int> ids);
 }

@@ -9,4 +9,6 @@ public class Actor
     public DateTime DateOfBirth { get; set; }
     // de momento lo dejamos como string, pero en un futuro lo cambiaremos a un tipo de dato que sea un array de bytes
     public string? Photo { get; set; }
+    
+    public List<ActorFilm> ActorFilms { get; set; } = new List<ActorFilm>();
 }

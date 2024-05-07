@@ -4,6 +4,7 @@ using FilmsUdemy.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FilmsUdemy.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240504232224_GendersFilms")]
+    partial class GendersFilms
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,28 +48,6 @@ namespace FilmsUdemy.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Actors");
-                });
-
-            modelBuilder.Entity("FilmsUdemy.Entity.ActorFilm", b =>
-                {
-                    b.Property<int>("FilmId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ActorId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Character")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Order")
-                        .HasColumnType("int");
-
-                    b.HasKey("FilmId", "ActorId");
-
-                    b.HasIndex("ActorId");
-
-                    b.ToTable("ActorFilms");
                 });
 
             modelBuilder.Entity("FilmsUdemy.Entity.Comment", b =>
@@ -149,25 +130,6 @@ namespace FilmsUdemy.Migrations
                     b.ToTable("GendersFilms");
                 });
 
-            modelBuilder.Entity("FilmsUdemy.Entity.ActorFilm", b =>
-                {
-                    b.HasOne("FilmsUdemy.Entity.Actor", "Actor")
-                        .WithMany("ActorFilms")
-                        .HasForeignKey("ActorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FilmsUdemy.Entity.Film", "Film")
-                        .WithMany("ActorFilms")
-                        .HasForeignKey("FilmId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Actor");
-
-                    b.Navigation("Film");
-                });
-
             modelBuilder.Entity("FilmsUdemy.Entity.Comment", b =>
                 {
                     b.HasOne("FilmsUdemy.Entity.Film", null)
@@ -196,15 +158,8 @@ namespace FilmsUdemy.Migrations
                     b.Navigation("Gender");
                 });
 
-            modelBuilder.Entity("FilmsUdemy.Entity.Actor", b =>
-                {
-                    b.Navigation("ActorFilms");
-                });
-
             modelBuilder.Entity("FilmsUdemy.Entity.Film", b =>
                 {
-                    b.Navigation("ActorFilms");
-
                     b.Navigation("Comments");
 
                     b.Navigation("GendersFilms");

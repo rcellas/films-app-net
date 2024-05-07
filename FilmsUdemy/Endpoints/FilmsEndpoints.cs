@@ -2,6 +2,8 @@ using AutoMapper;
 using FilmsUdemy.DTOs;
 using FilmsUdemy.DTOs.Films;
 using FilmsUdemy.Entity;
+using FilmsUdemy.Repositories;
+using FilmsUdemy.Repositories.Actors;
 using FilmsUdemy.Repositories.Films;
 using FilmsUdemy.Service;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -21,6 +23,8 @@ public static RouteGroupBuilder MapFilms(this RouteGroupBuilder group)
         group.MapPost("/", CreateFilm).DisableAntiforgery();
         group.MapPut("/{id:int}", UpdateFilm).DisableAntiforgery();
         group.MapDelete("/{id:int}", DeleteFilm);
+        group.MapPost("/{id:int}/assignGender", AssignGender);
+        group.MapPost("/{id:int}/assignActor", AssingActor);
         return group;
     }
 
@@ -96,6 +100,58 @@ public static RouteGroupBuilder MapFilms(this RouteGroupBuilder group)
         await repositoryFilms.DeleteFilm(id);
         await fileStorage.Delete(film.Poster, _container);
         await outputCacheStore.EvictByTagAsync("films-get", default);
+        return TypedResults.NoContent();
+    }
+
+    static async Task<Results<NoContent, NotFound, BadRequest<string>>> AssignGender(int id, List<int> gendersIds,
+        IRepositoryFilms repositoryFilms, IRespostoryGenderFilm repositoryGenders)
+    {
+        if(!await repositoryFilms.ExistFilm(id))
+        {
+            return TypedResults.NotFound();
+        }
+
+        var gendersExists = new List<int>();
+
+        if (gendersIds.Count != 0)
+        {
+            gendersExists = await repositoryGenders.ExistsListGenders(gendersIds);
+        }
+
+        if (gendersExists.Count != gendersIds.Count)
+        {
+            var gendersNotExists = gendersIds.Except(gendersExists);
+            return TypedResults.BadRequest($"los generos {string.Join(",", gendersNotExists)} no existen en la base de datos");
+        }
+        
+        await repositoryFilms.AssignGender(id, gendersExists);
+        return TypedResults.NoContent();
+    }
+    
+    static async Task<Results<NoContent,NotFound,BadRequest<string>>> AssingActor(int id, List<AsingActorFilmDto> actorDto,
+        IRepositoryFilms repositoryFilms, IRepositoryActors repositoryActors, IMapper mapper)
+    {
+        if (!await repositoryFilms.ExistFilm(id))
+        {
+            return TypedResults.NotFound();
+        }
+
+        var actorsExists = new List<int>();
+        var actorsIds = actorDto.Select(x => x.ActorId).ToList();
+
+        if (actorDto.Count != 0)
+        {
+            actorsExists = await repositoryActors.ExistActors(actorsIds);
+        }
+
+        if (actorsExists.Count != actorsIds.Count)
+        {
+            var actorsNotExists = actorsIds.Except(actorsExists);
+            return TypedResults.BadRequest($"los actores {string.Join(",", actorsNotExists)} no existen en la base de datos");
+        }
+        
+        var actorsFilm = mapper.Map<List<ActorFilm>>(actorDto);
+        await repositoryFilms.AssignActors(id, actorsFilm);
         return TypedResults.NoContent();
     }
     
