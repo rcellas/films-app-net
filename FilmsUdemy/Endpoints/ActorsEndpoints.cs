@@ -4,6 +4,7 @@ using FilmsUdemy.DTOs.Actors;
 using FilmsUdemy.Entity;
 using FilmsUdemy.Repositories.Actors;
 using FilmsUdemy.Service;
+using FluentValidation;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OutputCaching;
@@ -52,9 +53,15 @@ public static class ActorsEndpoints
     }
     
     // fromform nos sirve para recibir archivos desde el cliente
-    static async Task<Created<ActorsDto>> CreateActor([FromForm] CreateActorsDTO createActorsDto,
-        IRepositoryActors repositoryActors, IOutputCacheStore outputCacheStore, IMapper mapper, IFileStorage fileStorage)
+    static async Task<Results<Created<ActorsDto>, ValidationProblem>> CreateActor([FromForm] CreateActorsDTO createActorsDto,
+        IRepositoryActors repositoryActors, IOutputCacheStore outputCacheStore, IMapper mapper, IFileStorage fileStorage, IValidator<CreateActorsDTO> validator)
     {
+        var result = await validator.ValidateAsync(createActorsDto);
+        
+        if (!result.IsValid )
+        {
+            return TypedResults.ValidationProblem(result.ToDictionary());
+        }
         var actor = mapper.Map<Actor>(createActorsDto);
         if (createActorsDto.Photo is not null)
         {

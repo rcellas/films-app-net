@@ -1,5 +1,6 @@
 using FilmsUdemy.DTOs;
 using FilmsUdemy.Repositories;
+using FilmsUdemy.Validations.Utils;
 using FluentValidation;
 
 namespace FilmsUdemy.Validations;
@@ -21,11 +22,11 @@ public class CreateGenderDtoValidator : AbstractValidator<CreateGenderDTO>
         //RuleFor(x => x.Name).NotEmpty();
         
         //mostrar mensaje de error personalizado
-        RuleFor(x => x.Name).NotEmpty().WithMessage("El campo nombre es requerido").MaximumLength(50).WithMessage("El campo nombre no debe tener más de {MaxLength} caracteres").Must(FirstLetterMayus).WithMessage("El campo nombre debe empezar con mayúscula").MustAsync(async (name, _) =>
+        RuleFor(x => x.Name).NotEmpty().WithMessage(MessageValidationsFrequents.MessageRequired).MaximumLength(50).WithMessage(MessageValidationsFrequents.MessageMaxLength).Must(FirstLetterMayus).WithMessage(MessageValidationsFrequents.MessageMayu).MustAsync(async (name, _) =>
         {
             var exits = await respostoryGender.SameName(id:0, name);
             return !exits;
-        }).WithMessage("El campo nombre no se puede crear porque ya existe en la base de datos");
+        }).WithMessage(MessageValidationsFrequents.MessageExist);
     }
     // validación sincrona
     private bool FirstLetterMayus(string name)
