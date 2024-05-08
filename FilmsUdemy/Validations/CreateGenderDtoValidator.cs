@@ -7,8 +7,16 @@ namespace FilmsUdemy.Validations;
 //AbstrascValidator es una clase de FluentValidation que nos permite validar los DTOs atraves de reglas y de la abstracción de la clase
 public class CreateGenderDtoValidator : AbstractValidator<CreateGenderDTO>
 {
-    public CreateGenderDtoValidator(IRespostoryGenderFilm respostoryGender)
+    public CreateGenderDtoValidator(IRespostoryGenderFilm respostoryGender, IHttpContextAccessor httpContextAccessor)
     {
+        // esto nos permite obtener el id de la ruta que se ha pasado por parámetro y de esta forma poder hacer validaciones para que se pueda cambiar el nombre del género
+        var valueRouteId = httpContextAccessor.HttpContext?.Request.RouteValues["id"];
+        var id =0;
+        if(valueRouteId is string idString)
+        {
+            int.TryParse(idString, out id);
+        }
+        
         //mostrar mensaje de error no personalizado
         //RuleFor(x => x.Name).NotEmpty();
         

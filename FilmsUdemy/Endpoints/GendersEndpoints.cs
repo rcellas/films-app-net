@@ -73,8 +73,14 @@ static async Task<Results<Created<GenderDto>, ValidationProblem>> CreateGender(C
     return TypedResults.Created($"/gender/{id}", genderDto);
 }
 // llamamos a CreateGenderDTO pq hace la misma funcionalidad que el create
-static async Task<Results<NoContent,NotFound>> UpdateGenders(int id, CreateGenderDTO updateDto, IRespostoryGenderFilm repostory, IOutputCacheStore outputCacheStore, IMapper mapper)
+static async Task<Results<NoContent,NotFound, ValidationProblem>> UpdateGenders(int id, CreateGenderDTO updateDto, IRespostoryGenderFilm repostory, IOutputCacheStore outputCacheStore, IMapper mapper, IValidator<CreateGenderDTO> validator)
 {
+    var result = await validator.ValidateAsync(updateDto);
+    if(!result.IsValid)
+    {
+        return TypedResults.ValidationProblem(result.ToDictionary());
+    }
+    
     //miramos si existe la id
     var exist = await repostory.Exist(id);
 
