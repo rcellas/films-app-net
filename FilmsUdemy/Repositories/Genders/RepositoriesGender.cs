@@ -2,7 +2,7 @@ using FilmsUdemy.Data;
 using FilmsUdemy.Entity;
 using Microsoft.EntityFrameworkCore;
 
-namespace FilmsUdemy.Repositories;
+namespace FilmsUdemy.Repositories.Genders;
 
 
 public class RepositoriesGender : IRespostoryGenderFilm
@@ -53,6 +53,11 @@ public class RepositoriesGender : IRespostoryGenderFilm
     {
         // con AnyAsync, lo que estamos diciendo es que nos devuelva un booleano
         return await _context.Genders.AnyAsync(x=>x.Id == id);
+    }
+
+    public async Task<bool> SameName(int id, string name)
+    {
+        return await _context.Genders.AnyAsync();
     }
 
     
