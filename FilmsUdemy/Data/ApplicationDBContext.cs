@@ -41,5 +41,6 @@ public class ApplicationDBContext: DbContext
     public DbSet<GendersFilms> GendersFilms { get; set; }
     
     public DbSet<ActorFilm> ActorFilms { get; set; }
+    public DbSet<Error> Errors { get; set; }
     
 }

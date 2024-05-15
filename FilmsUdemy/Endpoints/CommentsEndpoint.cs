@@ -3,6 +3,8 @@ using FilmsUdemy.DTOs.Comment;
 using FilmsUdemy.Entity;
 using FilmsUdemy.Repositories.CommentsFilms;
 using FilmsUdemy.Repositories.Films;
+using FilmsUdemy.Utils.Filters;
+using FilmsUdemy.Validations.Utils;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.OutputCaching;
 
@@ -15,8 +17,8 @@ public static class CommentsEndpoint
         // cuando usamos el SetVaryByRouteValue, le estamos diciendo que si el valor de la ruta cambia, entonces la cache se invalida
         group.MapGet("/", GetAllComments).CacheOutput(c=>c.Expire(TimeSpan.FromSeconds(60)).Tag("comments-get").SetVaryByRouteValue(new string[] {"filmId"}));
         group.MapGet("/{id:int}", GetCommentById);
-        group.MapPost("/", CreateComment);
-        group.MapPut("/{id:int}", UpdateComment);
+        group.MapPost("/", CreateComment).AddEndpointFilter<FilterValidation<CommentsValidator>>();
+        group.MapPut("/{id:int}", UpdateComment).AddEndpointFilter<FilterValidation<CommentsValidator>>();
         group.MapDelete("/{id:int}", DeleteComment);
         return group;
     }

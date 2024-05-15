@@ -21,4 +21,5 @@ public interface IRespostoryGenderFilm
     
     Task<List<int>> ExistsListGenders(List<int> ids);
 
+    Task<bool> SameName(int id, string name);
 }
