@@ -52,6 +52,8 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 //Para construir las validaciones de FluentValidation (debemos instalar el paquete de FluentValidation.AspNetCore)
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+
+builder.Services.AddProblemDetails();
 var app = builder.Build();
 
 if (builder.Environment.IsDevelopment())
@@ -59,6 +61,9 @@ if (builder.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();    
 }
+
+app.UseExceptionHandler();
+app.UseStatusCodePages();
 
 app.UseCors();
 app.UseOutputCache();

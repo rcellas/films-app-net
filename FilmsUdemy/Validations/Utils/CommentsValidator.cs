@@ -1,10 +1,9 @@
 using FilmsUdemy.DTOs.Comment;
-using FilmsUdemy.Validations.Utils;
 using FluentValidation;
 
-namespace FilmsUdemy.Utils.Filters;
+namespace FilmsUdemy.Validations.Utils;
 
-public class CommentsValidator:AbstractValidator<CreateCommentsDto>
+public abstract class CommentsValidator:AbstractValidator<CreateCommentsDto>
 {
     public CommentsValidator()
     {
