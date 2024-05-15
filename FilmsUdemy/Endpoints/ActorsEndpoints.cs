@@ -4,6 +4,7 @@ using FilmsUdemy.DTOs.Actors;
 using FilmsUdemy.Entity;
 using FilmsUdemy.Repositories.Actors;
 using FilmsUdemy.Service;
+using FilmsUdemy.Utils.Filters;
 using FluentValidation;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -19,8 +20,8 @@ public static class ActorsEndpoints
         group.MapGet("/", GetAllActors).CacheOutput(c=>c.Expire(TimeSpan.FromSeconds(60)).Tag("actors-get"));
         group.MapGet("getByName/{name}", GetActorsByName);
         group.MapGet("/{id}", GetActorById);
-        group.MapPost("/", CreateActor).DisableAntiforgery();
-        group.MapPut("/{id:int}", UpdateActor).DisableAntiforgery();
+        group.MapPost("/", CreateActor).DisableAntiforgery().AddEndpointFilter<FilterValidation<CreateActorsDTO>>();;
+        group.MapPut("/{id:int}", UpdateActor).DisableAntiforgery().AddEndpointFilter<FilterValidation<CreateActorsDTO>>();
         group.MapDelete("/{id:int}", DeleteActors);
         return group;
     }
@@ -54,14 +55,8 @@ public static class ActorsEndpoints
     
     // fromform nos sirve para recibir archivos desde el cliente
     static async Task<Results<Created<ActorsDto>, ValidationProblem>> CreateActor([FromForm] CreateActorsDTO createActorsDto,
-        IRepositoryActors repositoryActors, IOutputCacheStore outputCacheStore, IMapper mapper, IFileStorage fileStorage, IValidator<CreateActorsDTO> validator)
+        IRepositoryActors repositoryActors, IOutputCacheStore outputCacheStore, IMapper mapper, IFileStorage fileStorage)
     {
-        var result = await validator.ValidateAsync(createActorsDto);
-        
-        if (!result.IsValid )
-        {
-            return TypedResults.ValidationProblem(result.ToDictionary());
-        }
         var actor = mapper.Map<Actor>(createActorsDto);
         if (createActorsDto.Photo is not null)
         {

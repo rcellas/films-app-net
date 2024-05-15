@@ -15,7 +15,7 @@ public static class CommentsEndpoint
         // cuando usamos el SetVaryByRouteValue, le estamos diciendo que si el valor de la ruta cambia, entonces la cache se invalida
         group.MapGet("/", GetAllComments).CacheOutput(c=>c.Expire(TimeSpan.FromSeconds(60)).Tag("comments-get").SetVaryByRouteValue(new string[] {"filmId"}));
         group.MapGet("/{id:int}", GetCommentById);
-        group.MapPost("/", CreateComment);
+        group.MapPost("/", CreateComment).AddEndpointFilter<>();
         group.MapPut("/{id:int}", UpdateComment);
         group.MapDelete("/{id:int}", DeleteComment);
         return group;

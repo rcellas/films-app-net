@@ -23,9 +23,9 @@ public static class GendersEndpoints
         group.MapGet("/${id:int}", GetGendersById).AddEndpointFilter<Filters>();
 
         // el IOutputCacheStore nos permite borrar la cache de un tag en concreto
-        group.MapPost("/", CreateGender);
+        group.MapPost("/", CreateGender).AddEndpointFilter<FilterValidation<CreateGenderDTO>>();
 
-        group.MapPut("/{id:int}", UpdateGenders);
+        group.MapPut("/{id:int}", UpdateGenders).AddEndpointFilter<FilterValidation<CreateGenderDTO>>();
         group.MapDelete("/{id:int}", DeleteGenders);
         return group;
     }
@@ -59,13 +59,9 @@ public static class GendersEndpoints
     }
 
     // el IMapper nos permite mapear un objeto a otro usando AutoMapper
-    static async Task<Results<Created<GenderDto>, ValidationProblem>> CreateGender(CreateGenderDTO createGenderDto, IRespostoryGenderFilm repository, IOutputCacheStore outputCacheStore, IMapper mapper, IValidator<CreateGenderDTO> validator)
+    static async Task<Results<Created<GenderDto>, ValidationProblem>> CreateGender(CreateGenderDTO createGenderDto, IRespostoryGenderFilm repository, IOutputCacheStore outputCacheStore, IMapper mapper)
     {
-        var result = await validator.ValidateAsync(createGenderDto);
-        if(!result.IsValid)
-        {
-            return TypedResults.ValidationProblem(result.ToDictionary());
-        }
+       
         var gender = mapper.Map<Gender>(createGenderDto);
         var id = await repository.Create(gender);
         // con el await le decimos que espere a que se ejecute el EvictByTagAsync y que al momento de crear el registro, borre la cache
@@ -76,13 +72,9 @@ public static class GendersEndpoints
         return TypedResults.Created($"/gender/{id}", genderDto);
     }
     // llamamos a CreateGenderDTO pq hace la misma funcionalidad que el create
-    static async Task<Results<NoContent,NotFound, ValidationProblem>> UpdateGenders(int id, CreateGenderDTO updateDto, IRespostoryGenderFilm repostory, IOutputCacheStore outputCacheStore, IMapper mapper, IValidator<CreateGenderDTO> validator)
+    static async Task<Results<NoContent,NotFound, ValidationProblem>> UpdateGenders(int id, CreateGenderDTO updateDto, IRespostoryGenderFilm repostory, IOutputCacheStore outputCacheStore, IMapper mapper )
     {
-        var result = await validator.ValidateAsync(updateDto);
-        if(!result.IsValid)
-        {
-            return TypedResults.ValidationProblem(result.ToDictionary());
-        }
+        
         
         //miramos si existe la id
         var exist = await repostory.Exist(id);
