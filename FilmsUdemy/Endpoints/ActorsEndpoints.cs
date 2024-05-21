@@ -63,10 +63,10 @@ public static class ActorsEndpoints
             string url = await fileStorage.Storage(container, createActorsDto.Photo);
             actor.Photo = url;
         }
-        int id = await repositoryActors.CreateActor(actor);
+        var id = await repositoryActors.CreateActor(actor);
         await outputCacheStore.EvictByTagAsync("actors-get", default);
-        var actorDTO = mapper.Map<ActorsDto>(actor);
-        return TypedResults.Created($"/actors/{id}", actorDTO);
+        var actorDto = mapper.Map<ActorsDto>(actor);
+        return TypedResults.Created($"/actors/{id}", actorDto);
 
     }
     

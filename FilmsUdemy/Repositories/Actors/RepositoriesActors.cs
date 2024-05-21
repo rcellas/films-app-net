@@ -8,11 +8,11 @@ namespace FilmsUdemy.Repositories.Actors;
 
 public class RepositoriesActors : IRepositoryActors
 {
-    private readonly ApplicationDBContext _context;
+    private readonly ApplicationDbContext _context;
     private readonly HttpContext _httpContext;
 
     // el httpcontextaccessor nos permite acceder a la información de la petición
-    public RepositoriesActors(ApplicationDBContext context, IHttpContextAccessor httpContextAccessor)
+    public RepositoriesActors(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor)
     {
         this._context = context;
         _httpContext = httpContextAccessor.HttpContext!;

@@ -6,9 +6,9 @@ namespace FilmsUdemy.Repositories.CommentsFilms;
 
 public class RepositoriesCommentsFilms : IRepositoriesCommentsFilms
 {
-    private readonly ApplicationDBContext _context;
+    private readonly ApplicationDbContext _context;
 
-    public RepositoriesCommentsFilms(ApplicationDBContext context)
+    public RepositoriesCommentsFilms(ApplicationDbContext context)
     {
         this._context = context;
     }

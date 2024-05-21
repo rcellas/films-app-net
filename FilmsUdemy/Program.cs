@@ -18,7 +18,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 var originsAllowed = builder.Configuration.GetValue<string>("OriginsAllowed")!;
 
-builder.Services.AddDbContext<ApplicationDBContext>(options =>
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer("name=DefaultConnection");
 });
@@ -58,6 +58,10 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 
 builder.Services.AddProblemDetails();
+
+builder.Services.AddAuthentication().AddJwtBearer();
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
 if (builder.Environment.IsDevelopment())
@@ -84,6 +88,7 @@ app.UseStatusCodePages();
 app.UseCors();
 app.UseOutputCache();
 
+ 
 app.UseStaticFiles();
 
 //app.MapGet("/", [EnableCors(policyName:"free")]() => "Hello World!");

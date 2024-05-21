@@ -2,7 +2,7 @@ namespace FilmsUdemy.Entity;
 
 public class Error
 {
-    public Guid Id { get; set; }
+    public Guid Id { get; init; }
     public string Message { get; set; } = null!;
     public string? StackTrace { get; set; } = null!;
     public DateTime Date { get; set; }

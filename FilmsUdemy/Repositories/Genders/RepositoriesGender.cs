@@ -9,10 +9,10 @@ public class RepositoriesGender : IRespostoryGenderFilm
 {
     //esto es un constructor que recibe un parametro de tipo ApplicationDBContext
     // ApplicationDBContext es una clase que nos permite interactuar con la base de datos
-    private readonly ApplicationDBContext _context;
+    private readonly ApplicationDbContext _context;
     
     // con este constructor, le decimos que el context que se recibe por parámetro, se lo asignamos a la variable context
-    public RepositoriesGender(ApplicationDBContext context)
+    public RepositoriesGender(ApplicationDbContext context)
     {
         this._context = context;
     }

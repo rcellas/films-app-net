@@ -16,12 +16,11 @@ public static class GendersEndpoints
     // el RouterGroupBuilder viene de MapGroup, que es un método que nos permite crear rutas
     public static RouteGroupBuilder MapGenders(this RouteGroupBuilder group)
     {
-        group.MapGet("/", GetAllGenders).CacheOutput(c=>c.Expire(TimeSpan.FromSeconds(60)).Tag("gender-get"));
+        group.MapGet("/", GetAllGenders).CacheOutput(c=>c.Expire(TimeSpan.FromSeconds(60)).Tag("gender-get")).RequireAuthorization();
 
         // el  context hace referencia a la petición que se ha hecho
         // el next es un delegado que nos permite ejecutar el siguiente middleware, esto quiere decir que si no se ejecuta el next, no se ejecutará el método GetGendersById
         group.MapGet("/${id:int}", GetGendersById).AddEndpointFilter<Filters>();
-
         // el IOutputCacheStore nos permite borrar la cache de un tag en concreto
         group.MapPost("/", CreateGender).AddEndpointFilter<FilterValidation<CreateGenderDTO>>();
 

@@ -3,12 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FilmsUdemy.Data;
 
-public class ApplicationDBContext: DbContext
+public class ApplicationDbContext(DbContextOptions options) : DbContext(options)
 {
     // el DbContextOptions nos permite configurar la conexión a la base de datos
-    public ApplicationDBContext(DbContextOptions options): base(options)
-    {
-    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -32,15 +29,14 @@ public class ApplicationDBContext: DbContext
     }
 
     // DbSet es una colección de entidades que se pueden consultar, agregar, modificar y eliminar
-    public DbSet<Gender> Genders { get; set; }
-    public DbSet<Actor> Actors { get; set; }
-    
-    public DbSet<Film> Films { get; set; }
-    public DbSet<Comment> Comments { get; set; }
-    
-    public DbSet<GendersFilms> GendersFilms { get; set; }
-    
-    public DbSet<ActorFilm> ActorFilms { get; set; }
-    public DbSet<Error> Errors { get; set; }
-    
+    public DbSet<Gender> Genders { get; set; } = null!;
+    public DbSet<Actor> Actors { get; set; } = null!;
+
+    public DbSet<Film> Films { get; set; } = null!;
+    public DbSet<Comment> Comments { get; set; } = null!;
+
+    public DbSet<GendersFilms> GendersFilms { get; set; } = null!;
+
+    public DbSet<ActorFilm> ActorFilms { get; set; } = null!;
+    public DbSet<Error> Errors { get; set; } = null!;
 }

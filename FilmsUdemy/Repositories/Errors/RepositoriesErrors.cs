@@ -5,8 +5,8 @@ namespace FilmsUdemy.Repositories.Errors;
 
 public class RepositoriesErrors : IRepositoriesErrors
 {
-    private readonly ApplicationDBContext _context;
-    public RepositoriesErrors(ApplicationDBContext context)
+    private readonly ApplicationDbContext _context;
+    public RepositoriesErrors(ApplicationDbContext context)
     {
         _context = context;
     }

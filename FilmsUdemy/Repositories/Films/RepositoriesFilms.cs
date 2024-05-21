@@ -9,13 +9,13 @@ namespace FilmsUdemy.Repositories.Films;
 
 public class RepositoriesFilms : IRepositoryFilms
 {
-    private readonly ApplicationDBContext _context;
+    private readonly ApplicationDbContext _context;
     private readonly HttpContext _httpContext;
     private readonly IMapper _mapper;
    
 
     // el httpcontextaccessor nos permite acceder a la información de la petición
-    public RepositoriesFilms(ApplicationDBContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper
+    public RepositoriesFilms(ApplicationDbContext context, IHttpContextAccessor httpContextAccessor, IMapper mapper
         )
     {
         this._context = context;
